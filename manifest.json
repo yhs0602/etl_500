@@ -1,6 +1,6 @@
 {
-  "name": "배경색 변경 크롬 확장 프로그램",
-  "description": "웹 페이지의 배경색을 변경해 주는 크롬 확장 프로그램입니다.",
+  "name": "ETL 500 해결",
+  "description": "ETL 500이 뜨면 쿠키를 지워줍니다",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
@@ -9,7 +9,12 @@
   "permissions": [
     "storage",
     "activeTab",
-    "scripting"
+    "scripting",
+    "cookies",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "*://myetl.snu.ac.kr/*"
   ],
   "action": {
     "default_popup": "popup.html",

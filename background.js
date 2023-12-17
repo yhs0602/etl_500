@@ -59,7 +59,7 @@ chrome.webRequest.onCompleted.addListener(
       });
 
       // Reload the tab
-      // chrome.tabs.reload(details.tabId);
+      chrome.tabs.reload(details.tabId);
     }
   },
   {

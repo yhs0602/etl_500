@@ -14,7 +14,12 @@
     "webRequest"
   ],
   "host_permissions": [
-    "*://myetl.snu.ac.kr/*"
+    "*://myetl.snu.ac.kr/*",
+    "*://etl.snu.ac.kr/*",
+    "*://snu.ac.kr/*",
+    "http://myetl.snu.ac.kr/*",
+    "http://etl.snu.ac.kr/*",
+    "http://snu.ac.kr/*"
   ],
   "action": {
     "default_popup": "popup.html",

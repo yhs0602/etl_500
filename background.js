@@ -60,6 +60,33 @@ chrome.webRequest.onCompleted.addListener(
 
       // Reload the tab
       chrome.tabs.reload(details.tabId);
+    } else if (details.statusCode === 200) {
+      console.log("HTTP 200 detected. Clearing cookies and reloading.");
+      let urls = [
+        "https://nsso.snu.ac.kr/sso/usr/login/link", // sso/usr/login/link
+        "http://nsso.snu.ac.kr/sso/usr/login/link", // sso/usr/login/link
+      ];
+      // if current URL is one of the login URLs
+      if (urls.includes(details.url)) {
+        // clear cookies and reload
+        console.log("Login detected. Clearing cookies and reloading.");
+        chrome.cookies.getAll({ url: details.url }, function (cookies) {
+          for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i];
+            let domain = cookie.domain;
+            if (domain.startsWith('.')) {
+              domain = domain.replace(/^\./, ''); // Removes the leading dot
+            }
+            let cookieUrl = (cookie.secure ? "https://" : "http://") + domain + cookie.path;
+            console.log(`${cookieUrl}, ${domain}, ${cookie.name}, ${cookie.path}`);
+            chrome.cookies.remove({ url: cookieUrl, name: cookie.name });
+          }
+        });
+        // Redirect to https://myetl.snu.ac.kr
+        chrome.tabs.update(details.tabId, { url: "https://myetl.snu.ac.kr" });
+      } else {
+        console.log("Not a login page. Ignoring.");
+      }
     }
   },
   {
@@ -70,6 +97,9 @@ chrome.webRequest.onCompleted.addListener(
       "http://etl.snu.ac.kr/*",
       "*://snu.ac.kr/*",
       "http://snu.ac.kr/*",
+      "https://nsso.snu.ac.kr/*",
+      "http://nsso.snu.ac.kr/sso/usr/login/link",
+      "https://sso.snu.ac.kr/sso/usr/login/link",
     ]
   }, // Monitor only these URLs
   ["responseHeaders"]

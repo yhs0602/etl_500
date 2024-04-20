@@ -19,7 +19,10 @@
     "*://snu.ac.kr/*",
     "http://myetl.snu.ac.kr/*",
     "http://etl.snu.ac.kr/*",
-    "http://snu.ac.kr/*"
+    "http://snu.ac.kr/*",
+    "*://nsso.snu.ac.kr/",
+    "*://nsso.snu.ac.kr/*",
+    "https://nsso.snu.ac.kr/"
   ],
   "action": {
     "default_popup": "popup.html",
